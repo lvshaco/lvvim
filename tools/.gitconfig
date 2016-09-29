@@ -1,0 +1,10 @@
+[core]
+	editor = vim
+	pager = 
+[color]
+	diff = auto
+[diff]
+	tool = 
+	external = gitdiffwrap
+[merge]
+	tool = vimdiff

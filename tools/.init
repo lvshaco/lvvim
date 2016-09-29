@@ -1,0 +1,31 @@
+#!/bin/sh
+tmux_init() 
+{
+    # server
+    tmux new-session -s $USER -d -n "server" 
+    # log
+    #tmux new-window -n "log"
+    tmux new-window -n "log" #"tail -f ~/log/2.log" 
+    tmux split-window -h #"tail -f ~/log/3.log"
+    tmux select-pane -L
+    tmux split-window -v #"tail -f ~/log/4.log"
+    tmux select-pane -R
+    tmux split-window -v 
+    # 3-7
+    tmux new-window -n "lshaco"
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    # mysql
+    tmux new-window -n "mysql"
+    # root
+    tmux new-window -n "root"
+    
+    tmux select-window -t server
+    # tmux -2强制启用256color，连接已开启的tmux 
+    tmux -2 attach-session -d           
+}
+if which tmux 2>&1 >/dev/null; then
+    tmux -2 attach -t $USER || tmux_init
+fi
