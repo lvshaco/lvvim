@@ -28,7 +28,7 @@ set tabstop=4 "制表符的宽度
 set softtabstop=4 "软制表符的宽度（制表符和空格结合）
 set expandtab "用空格代替制表符（用其它编辑器查看就可以统一）
 
-set clipboard+=unnamed
+"set clipboard+=unnamed
 "set t_Co=256
 set bg=dark
 "colorscheme termcolor
