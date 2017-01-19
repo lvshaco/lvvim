@@ -1,1 +1,2 @@
 Plug 'vim-scripts/a.vim'
+Plug 'dkprice/vim-easygrep'
