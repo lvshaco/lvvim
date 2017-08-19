@@ -1,6 +1,60 @@
-"----------------------------------------------------------------------------------
-"author: lv
-"-----------------------------------------------------------------------------------
+"
+" Autogen vimrc see: https://vim-bootstrap.com/
+" download this file, put at home/.vimrc then execute: vim +PlugInstall +qall
+"
+"*****************************************************************************
+"" Vim-PLug core
+"*****************************************************************************
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+endif
+
+let vimplug_exists=expand('~/.vim/autoload/plug.vim')
+
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+" Required:
+call plug#begin(expand('~/.vim/plugged'))
+
+"*****************************************************************************
+"" Plug install packages
+"*****************************************************************************
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/echofunc.vim'
+Plug 'uarun/vim-protobuf'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+Plug 'majutsushi/tagbar'
+"Plug 'vim-syntastic/syntastic'
+Plug 'rjohnsondev/vim-compiler-go'
+"Plug 'dgryski/vim-godef'
+
+call plug#end()
+
+
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 set path+=**
 filetype plugin indent on "文件类型检测
 syntax on "使用vim缺省的语法高亮
@@ -63,7 +117,37 @@ endif
 "nnoremap <C-K> d$
 "inoremap <C-K> <ESC>ld$a
 
-let g:mapleader=","
+let g:mapleader=" "
+
+"Go
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>rt <Plug>(go-run-tab)
+au FileType go nmap <leader>rs <Plug>(go-run-split)
+au FileType go nmap <leader>rv <Plug>(go-run-vertical)
+au FileType go nmap gh <Plug>(go-def-split)
+au FileType go nmap gv <Plug>(go-def-vertical)
+au FileType go nmap gs <Plug>(go-def-stack)
+let g:go_def_reuse_buffer = 1
+
+"vim-godef
+"let g:godef_split=2
+"let g:godef_same_file_in_same_window=1
+
+"tagbar
+nmap <F3> :TagbarToggle<CR>
+
+""Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+"vim-compiler-go
+autocmd FileType go compiler golang
 
 "vimrc
 nmap <leader>vs :source $HOME/.vimrc<CR>
@@ -112,11 +196,11 @@ noremap <F7> :call CompleteReplace2()<CR>
 "grep
 function! CompleteGrep()
     let w = "\\<" . expand("<cword>") . "\\>"
-    execute "vimgrep /" . w . "/gj **/*.py **/*.c **/*.h **/*.lua **/*.proto **/*.js"
+    execute "vimgrep /" . w . "/gj **/*.go **/*.py **/*.c **/*.h **/*.lua **/*.proto **/*.js"
     execute "cw"
-endfunction
-nmap <silent><F3> :call CompleteGrep()<CR><CR><CR>
-imap <silent><F3> <ESC><F3>
+endfunctio
+nmap <silent><F9> :call CompleteGrep()<CR><CR><CR>
+imap <silent><F9> <ESC><F3>
 
 "auto complete
 set completeopt=longest,menu
@@ -139,21 +223,21 @@ if has("cscope")
 	set cscopequickfix=c-,d-,e-,g-,i-,s-,t-
 	set cst
 	nmap <silent><leader>ss :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>ss <ESC><leader>ss
+	"imap <silent><leader>ss <ESC><leader>ss
 	nmap <silent><leader>sg :cs find g <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>sg <ESC><leader>sg
+	"imap <silent><leader>sg <ESC><leader>sg
 	nmap <silent><leader>sc :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>sc <ESC><leader>sc
+	"imap <silent><leader>sc <ESC><leader>sc
 	nmap <silent><leader>st :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>st <ESC><leader>st
+	"imap <silent><leader>st <ESC><leader>st
 	nmap <silent><leader>se :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>se <ESC><leader>se
+	"imap <silent><leader>se <ESC><leader>se
 	nmap <silent><leader>sf :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-	imap <silent><leader>sf <ESC><leader>sf
+	"imap <silent><leader>sf <ESC><leader>sf
 	nmap <silent><leader>si :cs find i <C-R>=expand("<cfile>")<CR>$<CR>:copen<CR>
-	imap <silent><leader>si <ESC><leader>si
+	"imap <silent><leader>si <ESC><leader>si
 	nmap <silent><leader>sd :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-	imap <silent><leader>sd <ESC><leader>sd
+	"imap <silent><leader>sd <ESC><leader>sd
 endif
 
 "tags
@@ -242,3 +326,11 @@ inoremap <expr> <plug>completes_me_backward <sid>completes_me(1)
 
 imap <Tab>   <plug>completes_me_forward
 imap <S-Tab> <plug>completes_me_backward
+
+"*****************************************************************************
+"*****************************************************************************
+
+"" Include user's local vim config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
