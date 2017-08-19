@@ -7,7 +7,8 @@
 [color]
 	diff = auto
 [diff]
-	tool = 
-	external = gitdiffwrap
+	tool = vimdiff
+[difftool]
+    prompt = No
 [merge]
 	tool = vimdiff
