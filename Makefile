@@ -1,2 +1,2 @@
 all:
-	cp -r tool/. ~/
+	cp -r tools/. ~/

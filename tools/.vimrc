@@ -31,17 +31,16 @@ call plug#begin(expand('~/.vim/plugged'))
 "" Plug install packages
 "*****************************************************************************
 Plug 'vim-scripts/a.vim'
-Plug 'vim-scripts/echofunc.vim'
+Plug 'majutsushi/tagbar'
 Plug 'uarun/vim-protobuf'
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plug 'majutsushi/tagbar'
-"Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 Plug 'rjohnsondev/vim-compiler-go'
 "Plug 'dgryski/vim-godef'
 
 call plug#end()
 
-
+let g:go_version_warning = 0
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -117,21 +116,10 @@ endif
 "nnoremap <C-K> d$
 "inoremap <C-K> <ESC>ld$a
 
-let g:mapleader=" "
+let g:mapleader=","
 
-"Go
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>rt <Plug>(go-run-tab)
-au FileType go nmap <leader>rs <Plug>(go-run-split)
-au FileType go nmap <leader>rv <Plug>(go-run-vertical)
-au FileType go nmap gh <Plug>(go-def-split)
-au FileType go nmap gv <Plug>(go-def-vertical)
-au FileType go nmap gs <Plug>(go-def-stack)
-let g:go_def_reuse_buffer = 1
-
-"vim-godef
-"let g:godef_split=2
-"let g:godef_same_file_in_same_window=1
+"a.vim
+":A switch
 
 "tagbar
 nmap <F3> :TagbarToggle<CR>
@@ -326,6 +314,21 @@ inoremap <expr> <plug>completes_me_backward <sid>completes_me(1)
 
 imap <Tab>   <plug>completes_me_forward
 imap <S-Tab> <plug>completes_me_backward
+
+"Go
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>rt <Plug>(go-run-tab)
+au FileType go nmap <leader>rs <Plug>(go-run-split)
+au FileType go nmap <leader>rv <Plug>(go-run-vertical)
+au FileType go nmap gh <Plug>(go-def-split)
+au FileType go nmap gv <Plug>(go-def-vertical)
+au FileType go nmap gs <Plug>(go-def-stack)
+let g:go_def_reuse_buffer = 1
+
+"vim-godef
+"let g:godef_split=2
+"let g:godef_same_file_in_same_window=1
+
 
 "*****************************************************************************
 "*****************************************************************************
