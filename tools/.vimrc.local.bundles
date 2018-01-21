@@ -1,2 +1,3 @@
 Plug 'vim-scripts/a.vim'
 Plug 'dkprice/vim-easygrep'
+Plug 'Valloric/YouCompleteMe'

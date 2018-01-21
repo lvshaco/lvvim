@@ -112,8 +112,8 @@ Plug 'xolox/vim-lua-inspect'
 
 " python
 "" Python Bundle
-Plug 'davidhalter/jedi-vim'
-Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+"Plug 'davidhalter/jedi-vim'
+"Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 
 "*****************************************************************************
@@ -292,7 +292,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
 let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
+let Grep_Skip_Files = '*.log *.db .*'
 let Grep_Skip_Dirs = '.git node_modules'
 
 " vimshell.vim
